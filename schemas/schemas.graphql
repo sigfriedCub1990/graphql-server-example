@@ -1,7 +1,17 @@
+enum LinkOrderByInput {
+  description_ASC
+  description_DESC
+  url_ASC
+  url_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
 type Query {
-    info: String!
-    feed: [Link!]!
+    posts(skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
     link(id: ID!): Link
+    users: [User!]!
+    votes: [Vote!]!
 }
 
 type Mutation {
@@ -10,11 +20,48 @@ type Mutation {
     updateLink(id: ID!, url: String, description: String): Link
 
     deleteLink(id: ID!): Link
+
+    signup(username: String!, password: String!, email: String!): AuthPayload
+
+    login(username: String!, password: String!): AuthPayload
+
+    vote(linkID: ID!): Vote
+}
+
+type Subscription {
+    newLink: Link
+    newVote: Vote
+}
+
+type AuthPayload {
+    token: String
+    user: User
 }
 
 type Link {
     id: ID!
     description: String!
     url: String!
-    
+    postedBy: User
+    votes: [Vote!]!
+}
+
+type User {
+    id: ID!
+    username: String!
+    password: String!
+    email: String!
+    links: [Link!]!
+    votes: [Vote!]!
+}
+
+type Vote {
+    id: ID!
+    link: Link!
+    user: User!
+}
+
+type Feed {
+    count: Int!
+    posts: [Link!]!
 }

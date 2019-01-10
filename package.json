@@ -11,6 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.16.4",
-    "graphql-yoga": "^1.16.9"
+    "graphql-yoga": "^1.16.9",
+    "jwt-simple": "^0.5.5",
+    "prisma-client-lib": "^1.23.3"
   }
 }

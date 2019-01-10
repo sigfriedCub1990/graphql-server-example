@@ -1,0 +1,9 @@
+endpoint: https://us1.prisma.sh/sigfried-e9741f/graphql-example/dev
+datamodel: datamodel.prisma
+
+generate:
+  - generator: javascript-client
+    output: ./generated/prisma-client/
+hooks:
+  post-deploy:
+    - prisma generate
